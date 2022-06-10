@@ -1,0 +1,44 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "BSPGen",
+"language": "GDScript",
+"path": "res://BSPGenerator.gd"
+}, {
+"base": "Reference",
+"class": "BSPNode",
+"language": "GDScript",
+"path": "res://BSPNode.gd"
+} ]
+_global_script_class_icons={
+"BSPGen": "",
+"BSPNode": ""
+}
+
+[application]
+
+config/name="GodungeonBSP"
+run/main_scene="res://Main.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://Global.gd"
+Counters="*res://counters.gd"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
