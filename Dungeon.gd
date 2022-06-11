@@ -3,11 +3,12 @@ extends Spatial
 export (Vector2) var minExt = Vector2(-50, -50)
 export (Vector2) var maxExt = Vector2(50, 50)
 export (Vector2) var wallThick = Vector2(0.2, 0.2)
-export (BSPGen.AXES) var axis = BSPGen.X
+export (BSPGen.AXES) var start_axis = BSPGen.X
 export (float) var min_room_area = 15
 export (float) var min_wall_length = 15
 export (float) var height = 5
 export (float) var cfThick = 0.2
+export (Material) var material
 
 enum {
 	OP_UN=CSGShape.OPERATION_UNION,
@@ -19,8 +20,10 @@ var csg_body
 const counters:Array = ["too_small", "just_right", "leaves"]
 
 func _ready():
+	if material == null:
+		material = Material.new()
 	Counters.make(counters)
-	var bsp = BSPGen.generateBSP(minExt.x, maxExt.x, minExt.y, maxExt.y, axis, min_room_area, min_wall_length)
+	var bsp = BSPGen.generateBSP(minExt.x, maxExt.x, minExt.y, maxExt.y, start_axis, min_room_area, min_wall_length)
 	spawn_dungeon(bsp, minExt, maxExt)
 	Counters.pops(counters)
 
@@ -76,4 +79,5 @@ func make_csg(pos, size, hgt, op=OP_UN, v_offset:float=0, use_col=true):
 	csg.depth = size.y
 	csg.operation = op
 	csg.use_collision = use_col
+	csg.material = material
 	return csg
